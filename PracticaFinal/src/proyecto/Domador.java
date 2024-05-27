@@ -1,31 +1,29 @@
 package proyecto;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Domador {
-    private String nombre;
-    private ArrayList<Digimon> equipo;
+	String nombre;
+    ArrayList<Digimon> equipo;
 
     public Domador(String nombre) {
         this.nombre = nombre;
         this.equipo = new ArrayList<>();
-        // Asignar un Digimon aleatorio al inicio
-        String[] digimonIniciales = {"Agumon", "Gabumon", "Patamon"};
-        int indiceAleatorio = new Random().nextInt(digimonIniciales.length);
-        this.equipo.add(new Digimon(digimonIniciales[indiceAleatorio]));
+        String[] digimonsIniciales = {"Agumon", "Gabumon", "Patamon"};
+        String digimonInicial = digimonsIniciales[new Random().nextInt(digimonsIniciales.length)];
+        Digimon inicial = new Digimon(digimonInicial);
+        this.equipo.add(inicial); // Digimon inicial aleatorio
+        inicial.mostrarEstado();
     }
 
-    public ArrayList<Digimon> getEquipo() {
-        return equipo;
-    }
-
-    public void capturar(Digimon enemigo) {
-        if (enemigo.getSalud() < 20 &&!equipo.contains(enemigo)) {
-            System.out.println(enemigo.getNombre() + " se ha unido a su equipo");
-            equipo.add(enemigo);
+    public void captura(Digimon digimon) {
+        if (digimon.salud < 20) {
+            equipo.add(digimon);
+            System.out.println(digimon.nombre + " se ha unido a su equipo");
         } else {
-            System.out.println("No se puede unir");
+            System.out.println("¡Aún no puedes capturar a " + digimon.nombre + "!");
         }
     }
 }

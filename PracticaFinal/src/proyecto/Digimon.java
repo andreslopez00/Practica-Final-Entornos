@@ -3,51 +3,37 @@ package proyecto;
 import java.util.Random;
 
 public class Digimon {
-    private String nombre;
-    private int nivel;
-    private int puntosAtaque;
-    private int salud;
-    private int intentosAtaque;
+	 String nombre;
+	    int nivel;
+	    int puntosDeAtaque;
+	    int salud;
+	    int dp;
 
-    public Digimon(String nombre) {
-        this.nombre = nombre;
-        Random random = new Random();
-        this.nivel = random.nextInt(5) + 1; // Nivel aleatorio entre 1 y 5
-        this.puntosAtaque = this.nivel * 5;
-        this.salud = this.nivel * 10;
-        this.intentosAtaque = 10;
-    }
+	    public Digimon(String nombre) {
+	        this.nombre = nombre;
+	        this.nivel = new Random().nextInt(5) + 1;
+	        this.puntosDeAtaque = 5 * nivel;
+	        this.salud = 10 * nivel;
+	        this.dp = 10;
+	    }
 
-    public void ataque1(Digimon enemigo) {
-        if (this.intentosAtaque > 0) {
-            enemigo.recibirDanio(this.puntosAtaque);
-            this.intentosAtaque--;
-        }
-    }
+	    public int ataque1() {
+	        if (dp >= 1) {
+	            dp -= 1;
+	            return puntosDeAtaque;
+	        }
+	        return 0;
+	    }
 
-    public void ataque2(Digimon enemigo) {
-        if (this.intentosAtaque > 1) { // Resta 2 intentos
-            enemigo.recibirDanio(this.puntosAtaque * 2);
-            this.intentosAtaque -= 2;
-        }
-    }
+	    public int ataque2() {
+	        if (dp >= 2) {
+	            dp -= 2;
+	            return puntosDeAtaque * 2;
+	        }
+	        return 0;
+	    }
 
-    private void recibirDanio(int danio) {
-        this.salud -= danio;
-        if (this.salud < 0) {
-            this.salud = 0;
-        }
-    }
-
-    public boolean estaDerrotado() {
-        return this.salud <= 0;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getSalud() {
-        return salud;
-    }
-}
+	    public void mostrarEstado() {
+	        System.out.println(nombre + " (Nivel: " + nivel + ", Salud: " + salud + ", Ataque: " + puntosDeAtaque + ", DP: " + dp + ")");
+	    }
+	}

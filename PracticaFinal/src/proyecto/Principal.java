@@ -8,28 +8,25 @@ public class Principal {
 
 	public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese el nombre del domador:");
+        System.out.println("Introduce el nombre del domador:");
         String nombreDomador = scanner.nextLine();
-
         Domador domador = new Domador(nombreDomador);
-        BatallaDigital batalla = new BatallaDigital(domador);
+        ArrayList<String> digimonsRestantes = new ArrayList<>();
+        digimonsRestantes.add("Agumon");
+        digimonsRestantes.add("Gabumon");
+        digimonsRestantes.add("Patamon");
+        digimonsRestantes.removeIf(d -> domador.equipo.stream().anyMatch(e -> e.nombre.equals(d)));
 
-        System.out.println("1. Iniciar batalla\n2. Salir");
-        int opcion = scanner.nextInt();
-
-        switch (opcion) {
-            case 1:
-                batalla.eligeDigimon();
-                // Aquí continuaría la lógica de la batalla
+        while (domador.equipo.size() < 3) {
+            System.out.println("1. Iniciar batalla\n2. Salir");
+            int opcion = scanner.nextInt();
+            if (opcion == 2) {
                 break;
-            case 2:
-                System.out.println("Saliendo...");
-                break;
-            default:
-                System.out.println("Opción inválida.");
-                break;
+            }
+            BatallaDigital batalla = new BatallaDigital(domador, digimonsRestantes);
+            batalla.elige();
+            digimonsRestantes.removeIf(d -> domador.equipo.stream().anyMatch(e -> e.nombre.equals(d)));
         }
-
-        scanner.close();
+        System.out.println("¡Felicidades! Has capturado a todos los Digimon icónicos.");
     }
 }

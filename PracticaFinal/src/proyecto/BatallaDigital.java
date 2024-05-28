@@ -4,10 +4,23 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * La clase BatallaDigital representa una batalla entre el equipo de Digimons de un domador y un digimon enemigo.
+ * Proporciona métodos para elegir el digimon del equipo que luchará y para gestionar la pelea.
+ * 
+ * @autor [Andrés López Barrera]
+ */
 public class BatallaDigital {
-	Digimon enemigo;
+    Digimon enemigo;
     Domador domador;
 
+    /**
+     * Constructor que inicializa una nueva batalla con el domador proporcionado y una lista de nombres de digimons restantes.
+     * Elige un digimon enemigo aleatorio que no esté en el equipo del domador.
+     *
+     * @param domador el domador que participará en la batalla
+     * @param digimonsRestantes la lista de nombres de digimons que pueden aparecer como enemigos
+     */
     public BatallaDigital(Domador domador, ArrayList<String> digimonsRestantes) {
         this.domador = domador;
         for (String digimon : digimonsRestantes) {
@@ -20,6 +33,9 @@ public class BatallaDigital {
         enemigo.mostrarEstado();
     }
 
+    /**
+     * Permite al domador elegir un digimon de su equipo para luchar contra el enemigo.
+     */
     public void elige() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Elige el Digimon de tu equipo para luchar:");
@@ -32,6 +48,11 @@ public class BatallaDigital {
         pelea(elegido);
     }
 
+    /**
+     * Gestiona la pelea entre el digimon elegido por el domador y el digimon enemigo.
+     * 
+     * @param elegido el digimon del domador que luchará contra el enemigo
+     */
     public void pelea(Digimon elegido) {
         Scanner scanner = new Scanner(System.in);
         while (enemigo.salud > 0 && elegido.salud > 0) {
@@ -54,7 +75,7 @@ public class BatallaDigital {
                     continue;
             }
             enemigo.salud -= dano;
-            System.out.println("El enemigo " + enemigo.nombre + " tiene " + enemigo.salud + " puntos de salud restantes.");
+            System.out.println("El enemigo " + enemigo.nombre + " recibió daño y tiene " + enemigo.salud + " puntos de salud restantes.");
             enemigo.mostrarEstado();
 
             // Ataque del enemigo al Digimon del domador
@@ -64,7 +85,7 @@ public class BatallaDigital {
                 System.out.println("Gracias por jugar.");
                 System.exit(0); // Termina el programa
             }
-            System.out.println("Tu " + elegido.nombre + " tiene " + elegido.salud + " puntos de salud restantes.");
+            System.out.println("Tu " + elegido.nombre + " recibió daño y tiene " + elegido.salud + " puntos de salud restantes.");
             elegido.mostrarEstado();
         }
 
